@@ -39,62 +39,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider () {
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         authenticationProvider.setUserDetailsService(userService);
         return authenticationProvider;
     }
-
-
-// IN MEMORY
-
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user = User.builder()
-//                .username("user")
-//                .password("user")
-//                .roles("USER")
-//                .build();
-//
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password("admin")
-//                .roles("ADMIN", "USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
-
-//    @Bean
-//    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
-//        UserDetails user = User.builder()
-//                .username("user")
-//                .password("{bcrypt}$2a$12$kRJg.Ph.Q.XiulyOld42UOPyYEr1wriLVoYG.IO/xDXXvxPHWxL3K")
-//                .roles("USER")
-//                .build();
-//
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password("{bcrypt}$2a$12$kRJg.Ph.Q.XiulyOld42UOPyYEr1wriLVoYG.IO/xDXXvxPHWxL3K")
-//                .roles("ADMIN", "USER")
-//                .build();
-//        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-//        if (userDetailsManager.userExists(user.getUsername())) {
-//            userDetailsManager.deleteUser(user.getUsername());
-//        }
-//        if (userDetailsManager.userExists(admin.getUsername())) {
-//            userDetailsManager.deleteUser(admin.getUsername());
-//        }
-//
-//        return userDetailsManager;
-//    }
-
 }

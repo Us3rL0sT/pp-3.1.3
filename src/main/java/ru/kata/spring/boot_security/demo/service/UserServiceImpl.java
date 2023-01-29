@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements UserService {
 
 
     private UserRepository userRepository;
@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -50,22 +51,26 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public User getUserById(int id) {
         return userRepository.getOne(id);
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Transactional
+    @Override
     public User saveUser(User user) {
         return userRepository.save(user);
     }
 
 
     @Transactional
+    @Override
     public void removeUserById(int id) {
         userRepository.deleteById(id);
     }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -26,9 +27,9 @@
         <td><a th:href="@{/{id}/edit (id=${person.getId()})}" th:text="${person.getUsername()}"></a></td>
         <td th:text="${person.getEmail()}"></td>
         <td th:text="${person.getPassword()}"></td>
-        <td><a th:href="@{/{id}/edit (id = ${person.getId()})}">Edit</a></td>
+        <td><a th:href="@{/admin/{id}/edit (id = ${person.getId()})}">Edit</a></td>
         <td>
-            <form th:method="DELETE" th:action="@{/{id}/delete (id=${person.getId()})}">
+            <form th:method="DELETE" th:action="@{/admin/{id}/delete (id=${person.getId()})}">
                 <input type="submit" value="Delete">
             </form>
         </td>

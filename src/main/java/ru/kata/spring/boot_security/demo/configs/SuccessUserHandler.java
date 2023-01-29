@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Component
 public class SuccessUserHandler implements AuthenticationSuccessHandler {
-    // Spring Security использует объект Authentication, пользователя авторизованной сессии.
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
@@ -26,11 +25,3 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
     }
 }
 
-/*
-* не понял как сделать 7 пункт, с перенаправлением :/
-* и ещё, как добавить в user.html в надпись "Welcome spring boot security page!" имя пользователя, чтобы получилось
-* "User, welcome spring boot security page!" либо "Admin, welcome spring boot security page!" глупый конечно вопрос, но
-* я его не знаю, как это сделать))
-*
-*
-* */

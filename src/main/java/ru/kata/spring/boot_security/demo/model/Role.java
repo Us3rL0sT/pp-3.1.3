@@ -1,7 +1,9 @@
 package ru.kata.spring.boot_security.demo.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -11,8 +13,10 @@ import java.util.Objects;
 
 @Data
 @Entity
-@Table(name="roles")
-public class Role implements GrantedAuthority {
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "roles")
+public class Role {
 
 
     @Id
@@ -20,41 +24,34 @@ public class Role implements GrantedAuthority {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name="role")
+    @Column(name = "role")
     private String role;
 
-    @ManyToMany
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     @JoinTable(
             name = "users_roles",
-            joinColumns = @JoinColumn(name="roles_id"),
-            inverseJoinColumns = @JoinColumn(name="users_id")
+            joinColumns = @JoinColumn(name = "roles_id"),
+            inverseJoinColumns = @JoinColumn(name = "users_id")
     )
 
     private List<User> users = new ArrayList<>();
 
-    public Role() {
+
+
+
+    public void addUser(User user) {
+        users.add(user);
+        user.getRoles().add(this);
     }
 
-    public Role(String role) {
-        this.role = role;
+    public void removeUser(User user) {
+        users.remove(user);
+        user.getRoles().remove(this);
     }
 
-    public void addRoleToUser(User user) {
-        if (users == null) {
-            users = new ArrayList<>();
-            users.add(user);
-        }
-    }
-
-    public void setRole(String role) {
-
-        this.role = role;
-    }
-
-    @Override
-    public String getAuthority() {
-        return role;
-    }
 
 
     @Override
@@ -68,15 +65,6 @@ public class Role implements GrantedAuthority {
     @Override
     public int hashCode() {
         return Objects.hash(id, role, users);
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", role='" + role + '\'' +
-                ", users=" + users +
-                '}';
     }
 }
 
