@@ -1,43 +1,43 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Users</title>
-</head>
-<body>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Users</title>-->
+<!--</head>-->
+<!--<body>-->
 
-<h2>All Users</h2>
+<!--<h2>All Users</h2>-->
 
-<br>
+<!--<br>-->
 
-<table>
+<!--<table>-->
 
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Operations</th>
-    </tr>
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Name</th>-->
+<!--        <th>Age</th>-->
+<!--        <th>Operations</th>-->
+<!--    </tr>-->
 
-    <tr th:each="person : ${allUs}">
-        <td th:text="${person.getId()}"></td>
-        <td><a th:href="@{/{id}/edit (id=${person.getId()})}" th:text="${person.getName()}"></a></td>
-        <td th:text="${person.getAge()}"></td>
-        <td><a th:href="@{/{id}/edit (id = ${person.getId()})}">Edit</a></td>
-        <td>
-            <form th:method="DELETE" th:action="@{/{id}/delete (id=${person.getId()})}">
-                <input type="submit" value="Delete">
-            </form>
-        </td>
-    </tr>
-</table>
+<!--    <tr th:each="person : ${allUs}">-->
+<!--        <td th:text="${person.getId()}"></td>-->
+<!--        <td><a th:href="@{/{id}/edit (id=${person.getId()})}" th:text="${person.getName()}"></a></td>-->
+<!--        <td th:text="${person.getAge()}"></td>-->
+<!--        <td><a th:href="@{/{id}/edit (id = ${person.getId()})}">Edit</a></td>-->
+<!--        <td>-->
+<!--            <form th:method="DELETE" th:action="@{/{id}/delete (id=${person.getId()})}">-->
+<!--                <input type="submit" value="Delete">-->
+<!--            </form>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--</table>-->
 
-<br>
-
-
-<input type="button" value="Add"
-       onclick="window.location.href='addNewUser'"/>
+<!--<br>-->
 
 
-</body>
-</html>
+<!--<input type="button" value="Add"-->
+<!--       onclick="window.location.href='addNewUser'"/>-->
+
+
+<!--</body>-->
+<!--</html>-->

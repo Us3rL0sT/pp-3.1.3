@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<h2>All Users</h2>
+
+<br>
+
+<table>
+
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Operations</th>
+    </tr>
+
+    <tr th:each="person : ${allUs}">
+        <td th:text="${person.getId()}"></td>
+        <td><a th:href="@{/{id}/edit (id=${person.getId()})}" th:text="${person.getUsername()}"></a></td>
+        <td th:text="${person.getEmail()}"></td>
+        <td th:text="${person.getPassword()}"></td>
+        <td><a th:href="@{/{id}/edit (id = ${person.getId()})}">Edit</a></td>
+        <td>
+            <form th:method="DELETE" th:action="@{/{id}/delete (id=${person.getId()})}">
+                <input type="submit" value="Delete">
+            </form>
+        </td>
+    </tr>
+</table>
+
+<br>
+
+
+<input type="button" value="Add"
+       onclick="window.location.href='addNewUser'"/>
+
+<input type="button" value="To INDEX page"
+       onclick="window.location.href='index'"/>
+
+<input type="button" value="LOGOUT"
+       onclick="window.location.href='logout'"/>
+</body>
+</html>
