@@ -9,16 +9,15 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
 
 
-    public User findByUsername(String username);
+    User findByUsername(String username);
 
-    public User getUserById(int id);
+    User getUserById(int id);
 
     List<User> getAllUsers();
 
     User saveUser(User user);
 
     void removeUserById(int id);
-
 
 
 }

@@ -32,13 +32,7 @@ public class UserController {
     }
 
 
-    @GetMapping(value = "index")
-    public String welcomePage(ModelMap model) {
-        return "index";
-    }
 
-    @GetMapping(value = "logout")
-    public String logOut(ModelMap model) {
-        return "redirect:/logout";
-    }
+
+
 }
