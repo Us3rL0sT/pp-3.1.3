@@ -4,8 +4,8 @@ package ru.kata.spring.boot_security.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
 
 
     private UserRepository userRepository;
+
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -47,7 +48,8 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+    @Transactional
+    Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRole())).collect(Collectors.toList());
     }
 
@@ -75,4 +77,12 @@ public class UserServiceImpl implements UserService {
     public void removeUserById(int id) {
         userRepository.deleteById(id);
     }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public User getCurrentUser() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
 }

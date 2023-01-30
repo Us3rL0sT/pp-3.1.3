@@ -43,7 +43,12 @@ public class User {
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id")
     )
-    private List<Role> roles;
+    private Set<Role> roles;
+
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
 
 
     @Override
@@ -58,4 +63,11 @@ public class User {
     public int hashCode() {
         return Objects.hash(id, username, password, email, roles);
     }
+
+    public String getRolesToString() {
+        String s = getRoles().toString().replaceAll("^\\[|\\]$", "");
+        return s.replace("ROLE_", "");
+    }
+
+
 }

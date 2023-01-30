@@ -40,8 +40,6 @@ public class Role {
     private List<User> users = new ArrayList<>();
 
 
-
-
     public void addUser(User user) {
         users.add(user);
         user.getRoles().add(this);
@@ -51,7 +49,6 @@ public class Role {
         users.remove(user);
         user.getRoles().remove(this);
     }
-
 
 
     @Override
@@ -66,6 +63,8 @@ public class Role {
     public int hashCode() {
         return Objects.hash(id, role, users);
     }
+
+
 }
 
 
