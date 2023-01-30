@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -48,10 +47,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Transactional
-    Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRole())).collect(Collectors.toList());
-    }
+    } // преобразование из ролей в authorities
 
     @Transactional(readOnly = true)
     @Override
@@ -80,7 +78,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional(readOnly = true)
     public User getCurrentUser() {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
