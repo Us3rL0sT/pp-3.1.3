@@ -12,7 +12,6 @@ import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -56,6 +55,16 @@ public class User implements UserDetails {
     }
 
     @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
         return false;
     }
@@ -90,9 +99,36 @@ public class User implements UserDetails {
     }
 
     public String getRolesToString() {
-        String s = getRoles().toString().replaceAll("^\\[|\\]$", "");
-        return s.replace("ROLE_", "");
+        String prefix = "ROLE_";
+        String str = roles.toString().replaceAll("^\\[|\\]$", "").replaceAll(prefix, "");
+        return str;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }

@@ -17,6 +17,7 @@ import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -78,8 +79,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Override
-    public User getCurrentUser() {
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public User getUserByName(String username) {
+        Optional<User> user = Optional.ofNullable(userRepository.findByUsername(username));
+        return user.orElse(null);
     }
 
 }

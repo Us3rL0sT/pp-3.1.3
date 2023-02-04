@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -23,10 +24,11 @@ public class UserController {
 
 
     @RequestMapping(value = "/user")
-    public String showUserPage(Model model) {
+    public String showUserPage(Model model, Principal principal) {
 
-        List<User> allUsers = userService.getAllUsers();
-        model.addAttribute("allUs", allUsers);
+        model.addAttribute("user", userService.findByUsername(principal.getName()));
+        model.addAttribute("allUs", userService.getUserByName(principal.getName()));
+        model.addAttribute("newUser", new User());
 
         return "user";
     }

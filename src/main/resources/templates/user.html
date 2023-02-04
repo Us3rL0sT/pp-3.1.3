@@ -2,29 +2,76 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 
 
-<h2>All Users</h2>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid text-white">
+        <a class="navbar-brand">
+            <b th:text="${user.getEmail()}">VALUE</b>
+            <text>with roles:</text>
+            <th:block th:each="role : ${user.roles}">
+                <span th:utext="${#strings.substringAfter(role.role, 'ROLE_')}"></span>
+            </th:block>
+        </a>
+        <a class="navbar-brand" href="/logout">
+            <text class="text-secondary">Logout</text>
+        </a>
+    </div>
+</nav>
+<!--Navbar close -->
 
-<br>
+<div class="row justify-content-between">
+    <div class="row">
+        <div class="col-2">
+            <div class="p-3">
+                <nav class="nav nav-pills nav-justified flex-column ">
+                    <a class="nav-link active" aria-current="page" href="/user">User</a>
+                </nav>
+            </div>
+        </div>
 
-<table>
 
 
 
 
 
-</table>
 
-<br>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="person : ${allUs}">
+                <!--        <tr th:each="roles : ${rolesAdd}">-->
+                <td th:text="${person.getId()}"></td>
+                <td><a th:href="@{/{id}/edit (id=${person.getId()})}" th:text="${person.getUsername()}"></a></td>
+                <td th:text="${person.getEmail()}"></td>
+                <td th:each="role:${user.roles}"><span th:utext="${#strings.substringAfter(role.role, 'ROLE_')}"></span>
+                </td>
 
-<input type="button" value="To INDEX page"
-       onclick="window.location.href='/'"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    <br>
 
-<input type="button" value="LOGOUT"
-       onclick="window.location.href='logout'"/>
+    <br>
+
+    <input type="button" value="To INDEX page"
+           onclick="window.location.href='/'"/>
+
+
 </body>
 </html>

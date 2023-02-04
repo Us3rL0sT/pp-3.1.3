@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin")
     public String showUserInfo(Model model, Principal principal) {
+        model.addAttribute("authorization", SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().findFirst().get().toString());
         model.addAttribute("user", userService.findByUsername(principal.getName()));
         model.addAttribute("allUs", userService.getAllUsers());
         model.addAttribute("newUser", new User());
