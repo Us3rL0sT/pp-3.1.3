@@ -28,7 +28,8 @@ public class AdminController {
 
     @RequestMapping(value = "/admin")
     public String showUserInfo(Model model, Principal principal) {
-        model.addAttribute("authorization", SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().findFirst().get().toString());
+        model.addAttribute("authorization", SecurityContextHolder.getContext().getAuthentication()
+                .getAuthorities().stream().findFirst().get().toString());
         model.addAttribute("user", userService.findByUsername(principal.getName()));
         model.addAttribute("allUs", userService.getAllUsers());
         model.addAttribute("newUser", new User());
@@ -38,29 +39,29 @@ public class AdminController {
     }
 
 
-    @RequestMapping("addNewUser")
-    public String getCreationForm(Model model) {
+//    @RequestMapping("addNewUser")
+//    public String getCreationForm(Model model) {
+//
+//        User user = new User();
+//        model.addAttribute("user", user);
+//
+//        return "user-info";
+//    }
 
-        User user = new User();
-        model.addAttribute("user", user);
-
-        return "user-info";
-    }
-
-    @PostMapping("user-info")
+    @PostMapping("/user-info")
     public String saveNewUser(@ModelAttribute("user") User user) {
 
         userService.saveUser(user);
         return "redirect:/admin";
     }
 
-    @RequestMapping("/admin/{id}/edit")
-    public String getEditForm(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.getUserById(id));
-        return "edit";
-    }
+//    @RequestMapping("/admin/{id}/edit")
+//    public String getEditForm(Model model, @PathVariable("id") int id) {
+//        model.addAttribute("user", userService.getUserById(id));
+//        return "edit";
+//    }
 
-    @RequestMapping("{id}")
+    @PostMapping("/admin/{id}/edit")
     public String editUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
         return "redirect:/admin";
