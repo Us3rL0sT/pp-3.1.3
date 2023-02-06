@@ -39,15 +39,6 @@ public class AdminController {
     }
 
 
-//    @RequestMapping("addNewUser")
-//    public String getCreationForm(Model model) {
-//
-//        User user = new User();
-//        model.addAttribute("user", user);
-//
-//        return "user-info";
-//    }
-
     @PostMapping("/user-info")
     public String saveNewUser(@ModelAttribute("user") User user) {
 
@@ -55,11 +46,6 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-//    @RequestMapping("/admin/{id}/edit")
-//    public String getEditForm(Model model, @PathVariable("id") int id) {
-//        model.addAttribute("user", userService.getUserById(id));
-//        return "edit";
-//    }
 
     @PostMapping("/admin/{id}/edit")
     public String editUser(@ModelAttribute("user") User user) {
@@ -71,6 +57,12 @@ public class AdminController {
     public String deleteUser(@PathVariable(name = "id") int id) {
         userService.removeUserById(id);
         return "redirect:/admin";
+    }
+
+    @GetMapping("/login")
+    public String getLoginPage(@RequestParam(value = "error", required = false) String error, Model model) {
+        model.addAttribute("error", error != null);
+        return "login";
     }
 
 

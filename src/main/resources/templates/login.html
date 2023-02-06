@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid pt-5">
+    <form th:action="@{/login}" method="post" style="max-width: 300px; margin: 0 auto">
+
+
+        <div th:if="${error}" class="alert alert-danger text-center" role="alert">
+            Invalid Email or Password!
+        </div>
+        <h3>Please sign in</h3>
+        <div class="pt-2">
+            <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required
+                   autofocus/>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required/>
+
+        </div>
+        <input style="padding-left: 130px; padding-right: 130px; margin-top: 10px; padding-top: 8px; padding-bottom: 8px" type="submit" value="Sign in"
+               class="btn btn-primary"/>
+
+    </form>
+
+
+</div>
+</body>
+</html>

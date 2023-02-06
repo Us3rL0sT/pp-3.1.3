@@ -39,6 +39,10 @@ public class Role {
 
     private List<User> users = new ArrayList<>();
 
+    public Role(String role) {
+        this.role = role;
+    }
+
 
     public void addUser(User user) {
         users.add(user);
