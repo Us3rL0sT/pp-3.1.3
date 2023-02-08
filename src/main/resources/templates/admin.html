@@ -56,7 +56,7 @@
                                    aria-controls="home" aria-selected="true">User Table</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#newuser" role="tab"
+                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#new_user" role="tab"
                                    aria-controls="profile" aria-selected="false">New User</a>
                             </li>
 
@@ -124,7 +124,7 @@
                         </div>
 
 
-                        <div class="tab-pane fade" id="newuser" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="tab-pane fade" id="new_user" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="border py-2 px-4 ">
                                 <h5>Add new user</h5>
                             </div>
@@ -188,14 +188,7 @@
 
                 <div class="tab-content" id="userTabContent">
 
-                    <!-- User Table -->
 
-
-                    <!-- end User Table -->
-
-                    <!-- New User table-pan -->
-
-                    <!-- New User table-pan / -->
                 </div>
             </div>
 
@@ -256,16 +249,24 @@
                             <input type="password" class="form-control"
                                    id="password_edit" name="password" th:value="*{password}">
                         </div>
-                        <div class="mb-3">
-                            <label style="font-weight: bold" for="roles_edit" class="label">Roles</label>
-                            <br>
-                            <select multiple class="form-control" id="roles_edit" size="2px"
-                                    name="roles">
-                                <option value="1">USER</option>
-                                <option value="2">ADMIN</option>
+<!--                        <div class="mb-3">-->
+<!--                            <label style="font-weight: bold" for="roles_edit" class="label">Roles</label>-->
+<!--                            <br>-->
+<!--                            <select multiple class="form-control" id="roles_edit" size="2px"-->
+<!--                                    name="role">-->
+<!--                                <option value="1">ADMIN</option>-->
+<!--                                <option value="2">USER</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+
+                        <div class="form-group">
+                            <label for="roleEdit" class="col-form-label">Role</label>
+                            <select multiple class="form-control" id="roleEdit" size="2px"
+                                    name="roleEdit" th:field="*{roles}">
+                                <option th:value="1">ADMIN</option>
+                                <option th:value="2">USER</option>
                             </select>
                         </div>
-
 
                     </form>
                 </div>

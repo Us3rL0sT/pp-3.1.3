@@ -61,15 +61,17 @@
                     <!-- User Table -->
                     <div class="card">
                         <div class="card-header py-3">
-                            <div class="h4 m-0 ">About user</div>
+                            <div class="h4 m-0 ">All users</div>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped border-top">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
+                                    <th>Login</th>
+                                    <th>Full Name</th>
                                     <th>Email</th>
+                                    <th>Phone Number</th>
                                     <th>Role</th>
                                 </tr>
                                 </thead>
@@ -77,7 +79,9 @@
                                 <tr th:each="user : ${allUs}">
                                     <td th:text="${user.getId()}"></td>
                                     <td th:text="${user.getUsername()}"></td>
+                                    <td th:text="${user.getFull_name()}"></td>
                                     <td th:text="${user.getEmail()}"></td>
+                                    <td th:text="${user.getPhone_number()}"></td>
                                     <td>
                                         <th:block th:each="role : ${user.roles}">
                                             <span th:utext="${#strings.substringAfter(role.role, 'ROLE_')}"></span>

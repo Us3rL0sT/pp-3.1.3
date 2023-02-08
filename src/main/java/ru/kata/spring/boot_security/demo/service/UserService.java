@@ -19,6 +19,5 @@ public interface UserService extends UserDetailsService {
 
     void removeUserById(int id);
 
-    // для чего метод update?
 
 }
