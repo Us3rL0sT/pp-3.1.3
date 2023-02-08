@@ -19,7 +19,6 @@ public interface UserService extends UserDetailsService {
 
     void removeUserById(int id);
 
-    User getUserByName(String username);
-
+    // для чего метод update?
 
 }
