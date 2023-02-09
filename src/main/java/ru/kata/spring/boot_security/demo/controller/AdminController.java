@@ -29,8 +29,6 @@ public class AdminController {
 
     @RequestMapping(value = "/admin")
     public String showUserInfo(Model model, Principal principal) {
-        model.addAttribute("authorization", SecurityContextHolder.getContext().getAuthentication()
-                .getAuthorities().stream().findFirst().get().toString());
         model.addAttribute("user", userService.findByUsername(principal.getName()));
         model.addAttribute("allUs", userService.getAllUsers());
         model.addAttribute("newUser", new User());
@@ -50,7 +48,7 @@ public class AdminController {
 
     @PostMapping("/admin/{id}/edit")
     public String editUser(@ModelAttribute("user") User user) {
-//        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userService.saveUser(user);
         return "redirect:/admin";
     }

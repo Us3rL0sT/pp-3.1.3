@@ -36,8 +36,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User findByUsername(String username) {
-        Optional<User> user = Optional.ofNullable(userRepository.findByUsername(username));
-        return user.orElse(null);
+        return userRepository.findByUsername(username);
     }
 
     @Override
@@ -45,9 +44,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         User user = findByUsername(username);
 
+        if (user == null) {
+            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
+        }
+
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getAuthorities());
 
     }
+
+
 
 
 
@@ -73,6 +78,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void removeUserById(int id) {
         userRepository.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public void updateUser(int id, User user) {
+        user.setId(id);
+        userRepository.save(user);
     }
 
 
