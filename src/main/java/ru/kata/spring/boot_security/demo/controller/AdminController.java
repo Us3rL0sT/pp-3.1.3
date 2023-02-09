@@ -40,7 +40,7 @@ public class AdminController {
 
     @PostMapping("/user-info")
     public String saveNewUser(@ModelAttribute("user") User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+
         userService.saveUser(user);
         return "redirect:/admin";
     }
@@ -48,7 +48,6 @@ public class AdminController {
 
     @PostMapping("/admin/{id}/edit")
     public String editUser(@ModelAttribute("user") User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userService.saveUser(user);
         return "redirect:/admin";
     }
