@@ -210,7 +210,7 @@
                     <!--Edit user FORM -->
                     <form th:id="'edit_user_form'+${user.getId()}"
                           th:action="@{/admin/{id}/edit(id=${user.getId()})}" th:object="${user}"
-                          th:method="PATCH">
+                          method="post">
                         <div class="mb-3">
                             <label style="font-weight: bold" for="id_edit" class="label">ID</label>
                             <input readonly type="number" class="form-control"
@@ -272,9 +272,10 @@
         </div>
     </div>
 </div>
-<!--  Modal window Edit user / -->
-<!-- Modal window Delete  -->
-<div th:each="user : ${allUs}" th:id="'deleteWindow' + ${user.getId()}" class="modal fade" tabindex="-1"
+
+
+
+<div th:each="userDelete : ${allUs}" th:id="'deleteWindow' + ${userDelete.getId()}" class="modal fade" tabindex="-1"
      aria-labelledby="deleteUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -285,10 +286,11 @@
             </div>
             <div class="modal-body">
                 <div class="mx-auto p-4 text-center fw-bold" style="width: 300px;">
-                    <!--Delete user FORM -->
-                    <form th:id="'delete_user_form'+${user.getId()}"
-                          th:action="@{/admin/{id}/delete(id=${user.getId()})}" th:object="${user}"
-                          th:method="DELETE">
+                    Delete user form
+                    <form th:id="'delete_user_form'+${userDelete.getId()}"
+                          th:action="@{/user-delete/{id}(id=${userDelete.getId()})}" th:object="${userDelete}"
+                          method="post">
+
                         <div class="mb-3">
                             <label style="font-weight: bold" for="id_delete" class="label">ID</label>
                             <input readonly type="number" class="form-control"
@@ -328,7 +330,7 @@
                                 <option th:each="role:${user.roles}"
                                         th:value="${role.id}"
                                         th:text="${role.getRole()}"
-                                        th:selected="${user.getRoles().contains(role.getRole())}">
+                                        th:selected="${userDelete.getRoles().contains(role.getRole())}">
                                 </option>
                             </select>
                         </div>
@@ -339,7 +341,7 @@
                 <button type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">Close
                 </button>
-                <button type="submit" th:form="'delete_user_form'+${user.getId()}"
+                <button type="submit" th:form="'delete_user_form'+${userDelete.getId()}"
                         class="btn btn-primary">Delete
                 </button>
             </div>
