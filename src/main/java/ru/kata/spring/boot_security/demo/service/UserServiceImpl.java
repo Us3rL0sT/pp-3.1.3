@@ -28,7 +28,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepository userRepository;
 
 
-
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -48,13 +47,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getAuthorities());
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+                user.getAuthorities());
 
     }
-
-
-
-
 
 
     @Override
@@ -86,8 +82,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setId(id);
         userRepository.save(user);
     }
-
-
 
 
 }

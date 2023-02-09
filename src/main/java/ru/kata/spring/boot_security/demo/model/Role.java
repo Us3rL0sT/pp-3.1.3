@@ -55,9 +55,6 @@ public class Role {
     }
 
 
-
-
-
     public int getId() {
         return id;
     }
