@@ -208,9 +208,10 @@
             <div class="modal-body">
                 <div class="mx-auto p-4 text-center fw-bold" style="width: 300px;">
                     <!--Edit user FORM -->
-                    <form th:id="'edit_user_form'+${user.getId()}"
-                          th:action="@{/admin/{id}/edit(id=${user.getId()})}" th:object="${user}"
-                          method="post">
+
+                    <form action="#" th:id="'edit_user_form'+${user.getId()}"
+                          th:action="@{/user-edit/{id}(id=${user.getId()})}" th:object="${user}"
+                          th:method="put">
                         <div class="mb-3">
                             <label style="font-weight: bold" for="id_edit" class="label">ID</label>
                             <input readonly type="number" class="form-control"
@@ -274,7 +275,6 @@
 </div>
 
 
-
 <div th:each="userDelete : ${allUs}" th:id="'deleteWindow' + ${userDelete.getId()}" class="modal fade" tabindex="-1"
      aria-labelledby="deleteUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -287,9 +287,9 @@
             <div class="modal-body">
                 <div class="mx-auto p-4 text-center fw-bold" style="width: 300px;">
                     Delete user form
-                    <form th:id="'delete_user_form'+${userDelete.getId()}"
+                    <form action="#" th:id="'delete_user_form'+${userDelete.getId()}"
                           th:action="@{/user-delete/{id}(id=${userDelete.getId()})}" th:object="${userDelete}"
-                          method="post">
+                          th:method="delete">
 
                         <div class="mb-3">
                             <label style="font-weight: bold" for="id_delete" class="label">ID</label>
