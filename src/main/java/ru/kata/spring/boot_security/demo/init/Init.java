@@ -31,7 +31,7 @@ public class Init {
 
         // пароль 123
         User admin = new User(1, "admin","Mr goldman" ,
-                "$2a$12$PyGfS7GtjU750Nn2HdewZOv1pxJnfA2tUZ8s6vB0XuHD0/qdS08i2", "admin@mail.ru",
+                "123", "admin@mail.ru",
                "7929239391",
                 Set.of(roleAdmin, roleUser));
 
@@ -40,7 +40,7 @@ public class Init {
         roleService.saveRole(roleUser);
 
         User user = new User(2, "user","Bob Pop",
-                "$2a$12$PyGfS7GtjU750Nn2HdewZOv1pxJnfA2tUZ8s6vB0XuHD0/qdS08i2", "user@mail.ru",
+                "123", "user@mail.ru",
                 "7743727473",
                 Set.of(roleUser));
 
