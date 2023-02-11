@@ -27,7 +27,7 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @RequestMapping(value = "/admin")
+    @GetMapping(value = "/admin")
     public String showUserInfo(Model model, Principal principal) {
         model.addAttribute("user", userService.findByUsername(principal.getName()));
         model.addAttribute("allUs", userService.getAllUsers());
