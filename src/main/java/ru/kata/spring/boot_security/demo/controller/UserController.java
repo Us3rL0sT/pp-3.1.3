@@ -23,7 +23,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/user")
+    @GetMapping(value = "/user")
     public String showUserPage(Model model, Principal principal) {
 
         model.addAttribute("user", userService.findByUsername(principal.getName()));
