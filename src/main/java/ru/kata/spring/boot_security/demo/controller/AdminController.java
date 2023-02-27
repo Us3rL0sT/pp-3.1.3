@@ -58,7 +58,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/login")
+    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
     public String getLoginPage(@RequestParam(value = "error", required = false) String error, Model model) {
         model.addAttribute("error", error != null);
         return "login";
