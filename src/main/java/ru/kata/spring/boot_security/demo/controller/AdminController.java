@@ -64,5 +64,14 @@ public class AdminController {
         return "login";
     }
 
+    @GetMapping(value = "/user")
+    public String showUserPage(Model model, Principal principal) {
+
+        model.addAttribute("user", userService.findByUsername(principal.getName()));
+        model.addAttribute("allUs", userService.findByUsername(principal.getName()));
+        model.addAttribute("newUser", new User());
+
+        return "user";
+    }
 
 }

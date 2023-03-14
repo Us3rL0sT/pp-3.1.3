@@ -44,6 +44,8 @@ public class User implements UserDetails {
     private String phone_number;
 
 
+
+
     @JsonIgnore
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
@@ -59,6 +61,19 @@ public class User implements UserDetails {
     public Set<Role> getRoles() {
         return roles;
     }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getStringRoles() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Role role : roles) {
+            stringBuilder.append(role.toString()).append(" ");
+        }
+        return stringBuilder.toString();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).collect(Collectors.toList());
@@ -93,9 +108,6 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 
     public String getFull_name() {
         return full_name;
@@ -137,6 +149,9 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return false;
     }
+
+
+
 
     @Override
     public boolean equals(Object o) {
