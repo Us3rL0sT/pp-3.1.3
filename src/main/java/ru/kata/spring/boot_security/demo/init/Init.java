@@ -29,7 +29,6 @@ public class Init {
         roleService.saveRole(roleUser);
 
 
-        // пароль 123
         User admin = new User(1, "admin","Mr goldman" ,
                 "123", "admin@mail.ru",
                "7929239391",
