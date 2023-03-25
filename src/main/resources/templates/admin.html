@@ -9,18 +9,12 @@
     <script src="https://code.jquery.com/jquery-3.6.3.js"
             integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 
-    <script>
-        function show(shown, hidden) {
-            document.getElementById(shown).style.display = 'block';
-            document.getElementById(hidden).style.display = 'none';
-            return false;
-        }
-    </script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
     </script>
 
 </head>
-<body onload="fillRoles(); fillHeader(); fillAdminTable(); fillUserTable(); ">
+<body>
 
 <!-- Navbar -->
 <nav class="navbar navbar-dark bg-dark" id="user-authorized-navbar">
@@ -54,7 +48,7 @@
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#usertable"
+                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#userTable"
                                    role="tab"
                                    aria-controls="home" aria-selected="true">User Table</a>
                             </li>
@@ -67,7 +61,7 @@
                     </div>
                     <div class="card-body">
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="usertable" role="tabpanel"
+                            <div class="tab-pane fade show active" id="userTable" role="tabpanel"
                                  aria-labelledby="home-tab">
 
                                 <div class="card">
@@ -105,7 +99,7 @@
                             </div>
                             <div class="border bg-body">
                                 <div class="mx-auto p-4 text-center font-weight-bold" style="width: 300px;">
-                                    <form action="#" th:action="@{/user-info}" th:object="${user}" method="POST">
+                                    <form id="formNewUser" name="formNewUser">
                                         <div class="mb-3">
                                             <label for="username" class="label">Login</label>
                                             <input type="text" class="form-control" id="username" name="username"
@@ -137,18 +131,12 @@
                                             <input type="password" class="form-control" name="password"
                                                    id="password" placeholder="Password" required>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="roles" class="label">Role</label>
-                                            <br>
-                                            <select id="roles" name="roles" multiple="multiple" class="form-select"
-                                                    size="3" aria-label="size 2 select" required>
-                                                <option th:each="role:${user.roles}"
-                                                        th:name="*{roles}"
-                                                        th:value="${role.id}"
-                                                        th:text="${role.getRole()}">
-                                                </option>
+                                        <label class="container-fluid"
+                                               for="newUserRoles"><strong>Role</strong>
+                                            <select id="newUserRoles" class="form-control" name="roles"
+                                                    multiple size="2">
                                             </select>
-                                        </div>
+                                        </label>
                                         <button type="submit" class="btn btn-success btn-lg">Add new user</button>
                                     </form>
 
@@ -171,8 +159,8 @@
 </div>
 
 <!-- Modal window Edit user -->
-<div th:each="user : ${allUs}" id="modalEdit" class="modal fade" tabindex="-1"
-     aria-labelledby="editModalEdit" aria-hidden="true">
+<div id="edit" class="modal fade" tabindex="-1"
+     aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -184,39 +172,38 @@
                 <div class="mx-auto p-4 text-center fw-bold" style="width: 300px;">
                     <!--Edit user FORM -->
 
-                    <form action="#" th:id="'formEditUser'"
-                          th:action="@{/user-edit/{id}(id=${user.getId()})}" th:object="${user}"
-                          th:method="put">
+                    <form id="formEditUser">
+
                         <div class="mb-3">
                             <label style="font-weight: bold" for="edit-user-field-id" class="label">ID</label>
                             <input readonly type="number" class="form-control"
-                                   id="edit-user-field-id" th:value="*{id}" name="id">
+                                   id="edit-user-field-id" name="id">
                         </div>
                         <div class="mb-3">
                             <label style="font-weight: bold" for="edit-user-field-username" class="label">Login</label>
                             <input type="text" class="form-control"
-                                   id="edit-user-field-username" th:value="*{username}"
+                                   id="edit-user-field-username"
                                    name="username" required>
                         </div>
                         <div class="mb-3">
                             <label style="font-weight: bold" for="edit-user-field-full_name" class="label">Full
                                 name</label>
                             <input type="text" class="form-control"
-                                   id="edit-user-field-full_name" th:value="*{full_name}"
+                                   id="edit-user-field-full_name"
                                    name="full_name" required>
                         </div>
                         <div class="mb-3">
                             <label style="font-weight: bold" for="edit-user-field-email" class="label ">Email
                                 address</label>
                             <input type="email" class="form-control" id="edit-user-field-email"
-                                   th:value="*{email}" name="email"
+                                   name="email"
                                    aria-describedby="emailHelp" required>
                         </div>
                         <div class="mb-3">
                             <label style="font-weight: bold" for="edit-user-field-phone_number" class="label">Phone
                                 Number</label>
                             <input type="text" class="form-control"
-                                   id="edit-user-field-phone_number" th:value="*{phone_number}"
+                                   id="edit-user-field-phone_number"
                                    name="phone_number" required>
                         </div>
 
@@ -224,15 +211,13 @@
                             <label style="font-weight: bold" for="edit-user-field-password"
                                    class="label">Password</label>
                             <input type="password" class="form-control"
-                                   id="edit-user-field-password" name="password" th:value="*{password}">
+                                   id="edit-user-field-password" name="password">
                         </div>
 
-                        <div class="form-group">
-                            <label for="edit-user-field-roles" class="col-form-label">Role</label>
-                            <select multiple class="form-control" id="edit-user-field-roles" size="2px"
-                                    name="roleEdit" th:field="*{roles}">
-                                <option th:value="1">ADMIN</option>
-                                <option th:value="2">USER</option>
+                        <div class="mb-4">
+                            <select class="custom-select col-5 mx-sm-3" id="rolesEditUser">
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="USER">USER</option>
                             </select>
                         </div>
 
@@ -329,6 +314,8 @@
 </div>
 <script type="text/javascript" src="/admin.js"></script>
 <script type="text/javascript" src="/delete.js"></script>
+<script type="text/javascript" src="/edit.js"></script>
+<script type="text/javascript" src="/create.js"></script>
 <br>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"

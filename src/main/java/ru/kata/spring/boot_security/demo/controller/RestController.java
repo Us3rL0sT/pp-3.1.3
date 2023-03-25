@@ -45,7 +45,7 @@ public class RestController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> update(@RequestBody User user) {
         userService.updateUser(user.getId(), user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -23,7 +23,6 @@ const fillNavbar = user => {
     }
 }
 
-// Get authorized user
 function authorizedUser() {
     fetch(userURL, {
         method: "GET",
