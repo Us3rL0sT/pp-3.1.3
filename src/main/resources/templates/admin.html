@@ -214,6 +214,8 @@
                                    id="edit-user-field-password" name="password">
                         </div>
 
+                        <div class="font-weight-bold"><label class="mb-0" for="rolesEditUser">Role</label>
+                        </div>
                         <div class="mb-4">
                             <select class="custom-select col-5 mx-sm-3" id="rolesEditUser">
                                 <option value="ADMIN">ADMIN</option>
@@ -221,22 +223,27 @@
                             </select>
                         </div>
 
+
                     </form>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close
+                <button type="button" id="editFormCloseButton" class="btn btn-secondary"
+                        data-dismiss="modal">Close
                 </button>
-                <button type="submit" th:form="'edit_user_form'+${user.getId()}"
-                        class="btn btn-primary">Edit
-                </button>
+
+                <button type="submit" class="btn btn-primary">Edit</button>
             </div>
         </div>
     </div>
 </div>
 
 
+
+
+
+
+<!-- DELETE !-->
 <div id="delete" class="modal" role="dialog"
      aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -252,14 +259,14 @@
             <div class="modal-body">
 
                 <div class="mx-auto p-4 text-center fw-bold" style="width: 300px;">
-                    Delete user form
+                    <!--  Delete user form   -->
                     <form id="formDeleteUser">
 
-                        <div class="mb-3">
-                            <label style="font-weight: bold" for="delete-user-field-id" class="label">ID</label>
-                            <input readonly type="number" class="form-control"
-                                   id="delete-user-field-id" name="id">
-                        </div>
+                        <p>
+                            <label for="idDelete"><strong>ID</strong>
+                                <input class="form-control" type="number" name="id" id="idDelete" disabled>
+                            </label>
+                        </p>
                         <div class="mb-3">
                             <label style="font-weight: bold" for="delete-user-field-username" class="label">User
                                 name</label>
@@ -313,8 +320,6 @@
     </div>
 </div>
 <script type="text/javascript" src="/admin.js"></script>
-<script type="text/javascript" src="/delete.js"></script>
-<script type="text/javascript" src="/edit.js"></script>
 <script type="text/javascript" src="/create.js"></script>
 <br>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"

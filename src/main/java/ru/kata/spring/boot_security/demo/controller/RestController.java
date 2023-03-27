@@ -37,12 +37,10 @@ public class RestController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> get(@PathVariable("id") int id) {
-        if (userService.getUserById(id) == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") int id) {
+        User response = userService.getUserById(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
