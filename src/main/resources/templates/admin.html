@@ -99,7 +99,7 @@
                             </div>
                             <div class="border bg-body">
                                 <div class="mx-auto p-4 text-center font-weight-bold" style="width: 300px;">
-                                    <form id="formNewUser" name="formNewUser">
+                                    <form id="formNewUser">
                                         <div class="mb-3">
                                             <label for="username" class="label">Login</label>
                                             <input type="text" class="form-control" id="username" name="username"
@@ -214,26 +214,24 @@
                                    id="edit-user-field-password" name="password">
                         </div>
 
-                        <div class="font-weight-bold"><label class="mb-0" for="rolesEditUser">Role</label>
-                        </div>
-                        <div class="mb-4">
-                            <select class="custom-select col-5 mx-sm-3" id="rolesEditUser">
-                                <option value="ADMIN">ADMIN</option>
-                                <option value="USER">USER</option>
+                        <label class="container-fluid col-6" for="rolesEditUser"><strong>Role</strong>
+                            <select class="form-control" id="rolesEditUser" name="roles" multiple size="2">
                             </select>
-                        </div>
+                        </label>
 
+
+                        <div class="modal-footer">
+                            <button type="button" id="editFormCloseButton" class="btn btn-secondary"
+                                    data-dismiss="modal">Close
+                            </button>
+
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </div>
 
                     </form>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" id="editFormCloseButton" class="btn btn-secondary"
-                        data-dismiss="modal">Close
-                </button>
 
-                <button type="submit" class="btn btn-primary">Edit</button>
-            </div>
         </div>
     </div>
 </div>
@@ -319,6 +317,7 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript" src="/admin.js"></script>
 <script type="text/javascript" src="/create.js"></script>
 <br>

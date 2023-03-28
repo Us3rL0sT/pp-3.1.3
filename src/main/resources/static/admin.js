@@ -1,7 +1,7 @@
 $(async function() {
 
     await allUsers();
-    // await createUser();
+    await createUser();
     editUser();
     deleteUser();
 });
@@ -63,17 +63,16 @@ const showEditModal = async (id) => {
     form.email.value = user.email;
     form.phone_number.value = user.phone_number;
     form.password.value = user.password;
-    form.role.value = user.role;
 
 
     $('#rolesEditUser').empty();
     await fetch("http://localhost:8080/api/roles")
         .then(res => res.json())
-        .then(roles => {
-            roles.forEach(role => {
+        .then(roless => {
+            roless.forEach(roles => {
                 let el = document.createElement("option");
-                el.text = role.name.substring(5);
-                el.value = role.id;
+                el.text = roles.role.substring(5);
+                el.value = roles.id;
                 $('#rolesEditUser')[0].appendChild(el);
             })
         });
@@ -91,6 +90,8 @@ function editUser() {
                 name: editForm.roles.options[i].text
             })
         }
+        console.log(editUserRoles[0].name)
+
         fetch("http://localhost:8080/api/" + editForm.id.value, {
             method: 'PUT',
             headers: {
@@ -102,8 +103,9 @@ function editUser() {
                 full_name: editForm.full_name.value,
                 email: editForm.email.value,
                 phone_number: editForm.phone_number.value,
-                roles: editUserRoles,
-                password: editForm.password.value
+                password: editForm.password.value,
+                roles: editUserRoles[0].name
+
 
             })
         }).then(() => {
@@ -112,6 +114,7 @@ function editUser() {
         })
     })
 }
+
 
 
 
@@ -141,21 +144,10 @@ const showDeleteModal = async (id) => {
     form.full_name.value = user.full_name;
     form.email.value = user.email;
     form.phone_number.value = user.phone_number;
-    form.roles.value = user.roles;
+    form.roles.value = user.stringRoles;
 
 
 
-    $('#rolesDeleteUser').empty();
-    await fetch("http://localhost:8080/api/roles")
-        .then(res => res.json())
-        .then(roles => {
-            roles.forEach(role => {
-                let el = document.createElement("option");
-                el.text = role.name.substring(5);
-                el.value = role.id;
-                $('#rolesDeleteUser')[0].appendChild(el);
-            })
-        });
 
 }
 
@@ -175,6 +167,78 @@ function deleteUser() {
             })
     })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// CREATE
+
+async function createUser() {
+    await fetch("http://localhost:8080/api/roles")
+        .then(res => res.json())
+        .then(roless => {
+            roless.forEach(roles => {
+                let el = document.createElement("option");
+                el.text = roles.role.substring(5);
+                el.value = roles.id;
+                $('#newUserRoles')[0].appendChild(el);
+            })
+        })
+
+    const form = document.forms["formNewUser"];
+
+    form.addEventListener('submit', addNewUser)
+
+    function addNewUser(e) {
+        e.preventDefault();
+        let newUserRoles = [];
+        for (let i = 0; i < form.roles.options.length; i++) {
+            if (form.roles.options[i].selected) newUserRoles.push({
+                id: form.roles.options[i].value,
+                name: form.roles.options[i].text
+            })
+        }
+        console.log(typeof newUserRoles[0].name)
+        fetch("http://localhost:8080/api", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: form.username.value,
+                full_name: form.full_name.value,
+                email: form.email.value,
+                phone_number: form.phone_number.value,
+                password: form.password.value,
+                stringRoles: newUserRoles[0].name
+
+            })
+        }).then(() => {
+            form.reset();
+            allUsers();
+            $('#userTable').click();
+        })
+    }
+
+}
+
+
+
+
+
 
 
 
