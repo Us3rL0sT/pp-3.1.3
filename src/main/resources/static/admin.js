@@ -63,6 +63,7 @@ const showEditModal = async (id) => {
     form.email.value = user.email;
     form.phone_number.value = user.phone_number;
     form.password.value = user.password;
+    form.roles = user.stringRoles;
 
 
     $('#rolesEditUser').empty();
@@ -78,7 +79,6 @@ const showEditModal = async (id) => {
         });
 }
 
-
 function editUser() {
     const editForm = document.forms["formEditUser"];
     editForm.addEventListener("submit", ev => {
@@ -90,8 +90,11 @@ function editUser() {
                 name: editForm.roles.options[i].text
             })
         }
-        console.log(editUserRoles[0].name)
-
+        // console.log(editUserRoles[0].name + "!!!" + editForm.roles.options[1].text + ".")
+        // console.log(editForm.roles.options[0].value)
+        const sel = document.getElementById("rolesEditUser");
+        const text = sel.options[sel.selectedIndex].text;
+        console.log(editUserRoles)
         fetch("http://localhost:8080/api/" + editForm.id.value, {
             method: 'PUT',
             headers: {
@@ -104,7 +107,8 @@ function editUser() {
                 email: editForm.email.value,
                 phone_number: editForm.phone_number.value,
                 password: editForm.password.value,
-                roles: editUserRoles[0].name
+                stringRoles: editUserRoles,
+
 
 
             })
@@ -112,7 +116,16 @@ function editUser() {
             $('#editFormCloseButton').click();
             allUsers();
         })
+
+
+
     })
+
+
+
+
+
+
 }
 
 
@@ -229,6 +242,7 @@ async function createUser() {
         }).then(() => {
             form.reset();
             allUsers();
+            window.location.href = "http://localhost:8080/admin";
             $('#userTable').click();
         })
     }
