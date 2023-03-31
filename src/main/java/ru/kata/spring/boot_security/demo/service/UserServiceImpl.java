@@ -19,6 +19,7 @@ import ru.kata.spring.boot_security.demo.repository.UserRepository;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -88,5 +89,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.save(user);
     }
 
+    @Override
+    public void addRole(int id, int roleId) {
+        // тут нужно создать переменную с юзером и добавить ему эту роль.
+        User user = getUserById(id);
 
+//        Role role = getRoleById(roleId);
+                // нужно найти роль по id. присвоить роль юзеру и сохранить юзера.
+
+        // дальше найти роль ща загуглю кое че
+//        короче дальше сам)))
+//        ищи как добавить и сохранить.
+    }
 }

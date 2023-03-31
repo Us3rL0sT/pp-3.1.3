@@ -21,5 +21,7 @@ public interface UserService extends UserDetailsService {
 
     void updateUser(int id, User user);
 
+    void addRole(int id, int roleId);
+
 
 }

@@ -49,6 +49,12 @@ public class RestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping(value = "/{id}/add-role/{roleId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> update(@PathVariable("id") int id, @PathVariable("roleId") int roleId) {
+        userService.addRole(id, roleId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @DeleteMapping(value ="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> delete(@PathVariable("id") int id) {
         if (userService.getUserById(id) == null) {

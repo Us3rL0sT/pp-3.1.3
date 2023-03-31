@@ -95,6 +95,13 @@ function editUser() {
         const sel = document.getElementById("rolesEditUser");
         const text = sel.options[sel.selectedIndex].text;
         console.log(editUserRoles)
+        let stringRoles = '';
+        editUserRoles.forEach(({ name }) => {
+            if (stringRoles) stringRoles += ' ';
+
+            stringRoles += name;
+        });
+        debugger;
         fetch("http://localhost:8080/api/" + editForm.id.value, {
             method: 'PUT',
             headers: {
@@ -107,19 +114,18 @@ function editUser() {
                 email: editForm.email.value,
                 phone_number: editForm.phone_number.value,
                 password: editForm.password.value,
-                stringRoles: editUserRoles,
-
-
-
+                stringRoles,
             })
         }).then(() => {
             $('#editFormCloseButton').click();
             allUsers();
         })
-
-
-
     })
+
+
+
+
+
 
 
 
