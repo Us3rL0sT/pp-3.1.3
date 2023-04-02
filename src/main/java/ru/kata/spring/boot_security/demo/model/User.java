@@ -46,7 +46,6 @@ public class User implements UserDetails {
 
 
 
-    @JsonIgnore
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
@@ -56,14 +55,15 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id")
     )
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public Set<Role> setRoles(Set<Role> roles) {
         this.roles = roles;
+        return roles;
     }
 
     public String getStringRoles() {
@@ -74,14 +74,9 @@ public class User implements UserDetails {
         return stringBuilder.toString();
     }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).collect(Collectors.toList());
-//    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).collect(Collectors.toList());
     }
 
     @Override
@@ -169,5 +164,13 @@ public class User implements UserDetails {
     @Override
     public int hashCode() {
         return Objects.hash(id, username, full_name, password, email, phone_number, roles);
+    }
+
+    public void addRole(Role role) {
+        roles.add(role);
+    }
+
+    public void removeRole(Role role) {
+        roles.remove(role);
     }
 }

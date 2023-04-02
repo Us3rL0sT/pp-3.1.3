@@ -1,0 +1,38 @@
+create table users(
+    id int not null,
+    username varchar(30) not null,
+    full_name varchar(30),
+    password varchar(80),
+    email varchar(50) UNIQUE,
+    phone_number varchar(50),
+    primary key (id)
+);
+
+create table users_roles (
+    users_id int not null,
+    roles_id int not null,
+    primary key (users_id, roles_id),
+    foreign key (users_id) references users (id),
+    foreign key (roles_id) references roles (id)
+);
+create table roles (
+   id int not null,
+   role varchar(30),
+   primary key (id)
+);
+
+insert into users(id, username, password, email)
+values
+(2 ,'admin', '$2a$12$PyGfS7GtjU750Nn2HdewZOv1pxJnfA2tUZ8s6vB0XuHD0/qdS08i2', 'admin@gmail.com');
+
+insert into users_roles (users_id, roles_id) values (1, 1);
+
+
+ALTER TABLE users ADD id int not null;
+
+ALTER TABLE users DROP COLUMN id;
+ALTER TABLE users_roles DROP COLUMN roles_id;
+
+select * from users_roles;
+
+TRUNCATE TABLE users

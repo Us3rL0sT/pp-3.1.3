@@ -79,47 +79,64 @@ const showEditModal = async (id) => {
         });
 }
 
-function editUser() {
+async function editUser() {
     const editForm = document.forms["formEditUser"];
-    editForm.addEventListener("submit", ev => {
-        ev.preventDefault();
-        let editUserRoles = [];
-        for (let i = 0; i < editForm.roles.options.length; i++) {
-            if (editForm.roles.options[i].selected) editUserRoles.push({
-                id: editForm.roles.options[i].value,
-                name: editForm.roles.options[i].text
-            })
-        }
-        // console.log(editUserRoles[0].name + "!!!" + editForm.roles.options[1].text + ".")
-        // console.log(editForm.roles.options[0].value)
-        const sel = document.getElementById("rolesEditUser");
-        const text = sel.options[sel.selectedIndex].text;
-        console.log(editUserRoles)
-        let stringRoles = '';
-        editUserRoles.forEach(({ name }) => {
-            if (stringRoles) stringRoles += ' ';
+    editForm.addEventListener("submit", async (ev) => {
+        try {
+            ev.preventDefault();
+            let editUserRoles = [];
+            for (let i = 0; i < editForm.roles.options.length; i++) {
+                if (editForm.roles.options[i].selected) editUserRoles.push({
+                    id: editForm.roles.options[i].value,
+                    name: editForm.roles.options[i].text
+                })
+            }
+            const { roles } = await getUser(editForm.id.value);
+            const addedRolesIDs = editUserRoles.reduce((acc, editRole) => {
+                if (!roles.some(startingRole => startingRole.id == editRole.id)) acc.push(editRole.id);
 
-            stringRoles += name;
-        });
-        debugger;
-        fetch("http://localhost:8080/api/" + editForm.id.value, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: editForm.id.value,
-                username: editForm.username.value,
-                full_name: editForm.full_name.value,
-                email: editForm.email.value,
-                phone_number: editForm.phone_number.value,
-                password: editForm.password.value,
-                stringRoles,
+                return acc;
+            }, []);
+            const removedRolesIDs = roles.reduce((acc, startingRole) => {
+                if (!editUserRoles.some(editRole => editRole.id == startingRole.id)) acc.push(startingRole.id);
+
+                return acc;
+            }, []);
+            let stringRoles = '';
+            editUserRoles.forEach(({name}) => {
+                if (stringRoles) stringRoles += ' ';
+
+                stringRoles += name;
+            });
+            for (const id of addedRolesIDs) {
+                await fetch(`http://localhost:8080/api/${editForm.id.value}/add-role/${ id }`, {
+                    method: 'PUT',
+                })
+            }
+            for (const id of removedRolesIDs) {
+                await fetch(`http://localhost:8080/api/${editForm.id.value}/remove-role/${ id }`, {
+                    method: 'PUT',
+                })
+            }
+            await fetch(`http://localhost:8080/api/${editForm.id.value}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: editForm.id.value,
+                    username: editForm.username.value,
+                    full_name: editForm.full_name.value,
+                    email: editForm.email.value,
+                    phone_number: editForm.phone_number.value,
+                    password: editForm.password.value,
+                    stringRoles,
+                })
             })
-        }).then(() => {
+        } finally {
             $('#editFormCloseButton').click();
-            allUsers();
-        })
+            await allUsers();
+        }
     })
 
 
