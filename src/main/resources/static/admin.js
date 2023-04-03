@@ -180,7 +180,7 @@ const showDeleteModal = async (id) => {
     form.full_name.value = user.full_name;
     form.email.value = user.email;
     form.phone_number.value = user.phone_number;
-    form.roles.value = user.stringRoles;
+    form.roles = user.stringRoles;
 
 
 
@@ -238,7 +238,9 @@ async function createUser() {
 
     form.addEventListener('submit', addNewUser)
 
-    function addNewUser(e) {
+    async function addNewUser(e) {
+
+
         e.preventDefault();
         let newUserRoles = [];
         for (let i = 0; i < form.roles.options.length; i++) {
@@ -247,6 +249,24 @@ async function createUser() {
                 name: form.roles.options[i].text
             })
         }
+        // const { roles } = await getUser(newUserRoles.id);
+        // const addedRolesIDs = newUserRoles.reduce((acc, newRole) => {
+        //     if (!roles.some(startingRole => startingRole.id == newRole.id)) acc.push(newRole.id);
+        //
+        //     return acc;
+        // }, []);
+        //
+        // let stringRoles = '';
+        // newUserRoles.forEach(({name}) => {
+        //     if (stringRoles) stringRoles += ' ';
+        //
+        //     stringRoles += name;
+        // });
+        // for (const id of addedRolesIDs) {
+        //     await fetch(`http://localhost:8080/api/${form.id.value}/add-role/${ id }`, {
+        //         method: 'POST',
+        //     })
+        // }
         console.log(typeof newUserRoles[0].name)
         fetch("http://localhost:8080/api", {
             method: 'POST',
@@ -259,7 +279,7 @@ async function createUser() {
                 email: form.email.value,
                 phone_number: form.phone_number.value,
                 password: form.password.value,
-                stringRoles: newUserRoles[0].name
+                stringRoles,
 
             })
         }).then(() => {
