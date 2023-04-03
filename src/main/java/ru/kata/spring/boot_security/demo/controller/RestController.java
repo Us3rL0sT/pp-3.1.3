@@ -51,7 +51,7 @@ public class RestController {
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> update(@RequestBody User user) {
         userService.updateUser(user.getId(), user);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping(value = "/{userId}/add-role/{roleId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,8 +61,17 @@ public class RestController {
     ) {
         User user = userService.getUserById(userId);
         Role role = roleService.getRoleById(roleId);
-        System.out.println(user);
-        System.out.println(role);
+        user.addRole(role);
+        return userRepository.save(user);
+    }
+
+    @PostMapping(value = "/{userId}/add-role-new-user/{roleId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public User addRoleNewUser(
+            @PathVariable("userId") int userId,
+            @PathVariable("roleId") int roleId
+    ) {
+        User user = userService.getUserById(userId);
+        Role role = roleService.getRoleById(roleId);
         user.addRole(role);
         return userRepository.save(user);
     }

@@ -63,7 +63,6 @@ const showEditModal = async (id) => {
     form.email.value = user.email;
     form.phone_number.value = user.phone_number;
     form.password.value = user.password;
-    form.roles = user.stringRoles;
 
 
     $('#rolesEditUser').empty();
@@ -130,7 +129,7 @@ async function editUser() {
                     email: editForm.email.value,
                     phone_number: editForm.phone_number.value,
                     password: editForm.password.value,
-                    stringRoles,
+                    roles: stringRoles,
                 })
             })
         } finally {
@@ -238,9 +237,7 @@ async function createUser() {
 
     form.addEventListener('submit', addNewUser)
 
-    async function addNewUser(e) {
-
-
+    function addNewUser(e) {
         e.preventDefault();
         let newUserRoles = [];
         for (let i = 0; i < form.roles.options.length; i++) {
@@ -249,24 +246,6 @@ async function createUser() {
                 name: form.roles.options[i].text
             })
         }
-        // const { roles } = await getUser(newUserRoles.id);
-        // const addedRolesIDs = newUserRoles.reduce((acc, newRole) => {
-        //     if (!roles.some(startingRole => startingRole.id == newRole.id)) acc.push(newRole.id);
-        //
-        //     return acc;
-        // }, []);
-        //
-        // let stringRoles = '';
-        // newUserRoles.forEach(({name}) => {
-        //     if (stringRoles) stringRoles += ' ';
-        //
-        //     stringRoles += name;
-        // });
-        // for (const id of addedRolesIDs) {
-        //     await fetch(`http://localhost:8080/api/${form.id.value}/add-role/${ id }`, {
-        //         method: 'POST',
-        //     })
-        // }
         console.log(typeof newUserRoles[0].name)
         fetch("http://localhost:8080/api", {
             method: 'POST',
@@ -279,7 +258,7 @@ async function createUser() {
                 email: form.email.value,
                 phone_number: form.phone_number.value,
                 password: form.password.value,
-                stringRoles,
+                stringRoles: newUserRoles[0].name
 
             })
         }).then(() => {
@@ -291,6 +270,7 @@ async function createUser() {
     }
 
 }
+
 
 
 
