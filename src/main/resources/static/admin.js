@@ -120,7 +120,6 @@ async function editUser() {
                     email: editForm.email.value,
                     phone_number: editForm.phone_number.value,
                     password: editForm.password.value,
-                    //roles: stringRoles,
                 })
             })
             for (const id of addedRolesIDs) {

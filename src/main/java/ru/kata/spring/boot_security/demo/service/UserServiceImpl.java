@@ -28,11 +28,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     private UserRepository userRepository;
-    private final RoleRepository roleRepository;
-    public UserServiceImpl(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
-
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -105,36 +100,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-//    @Override
-//    public User setRolesByUserId(int userId, int roleId) {
-//        User user = getUserById(userId);
-//        return userRepository.save(user);
-//
-//
-//    }
+
 }
-
-
-
-//    @Transactional
-//    @Override
-//    public User updateUser(int id, User user) {
-//        User existingUser = userRepository.findById(user.getId()).orElse(null);
-//        if (existingUser != null) {
-//            if (user.getFull_name() != null) {
-//                existingUser.setFull_name(user.getFull_name());
-//            }
-//            if (user.getPhone_number() != null) {
-//                existingUser.setPhone_number(user.getPhone_number());
-//            }
-//            if (user.getEmail() != null) {
-//                existingUser.setEmail(user.getEmail());
-//            }
-////            if (user.getRoles() != null) {
-////                existingUser.setRoles(user.getRoles());
-////            }
-//            return userRepository.save(existingUser);
-//        } else {
-//            return null;
-//        }
-//    }
