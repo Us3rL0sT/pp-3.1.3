@@ -73,10 +73,7 @@ public class Role {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return getRole().replace("ROLE_", "");
-    }
+
 
     public List<User> getUsers() {
         return users;
@@ -84,6 +81,12 @@ public class Role {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+
+    @Override
+    public String toString() {
+        return getRole().replace("ROLE_", "");
     }
 
     @Override

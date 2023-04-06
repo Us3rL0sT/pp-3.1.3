@@ -153,6 +153,15 @@ public class User implements UserDetails {
 
 
 
+
+    public void addRole(Role role) {
+        roles.add(role);
+    }
+
+    public void removeRole(Role role) {
+        roles.remove(role);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -166,11 +175,4 @@ public class User implements UserDetails {
         return Objects.hash(id, username, full_name, password, email, phone_number, roles);
     }
 
-    public void addRole(Role role) {
-        roles.add(role);
-    }
-
-    public void removeRole(Role role) {
-        roles.remove(role);
-    }
 }

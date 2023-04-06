@@ -246,7 +246,6 @@ async function createUser() {
                 name: form.roles.options[i].text
             })
         }
-        console.log(typeof newUserRoles[0].name)
         fetch("http://localhost:8080/api", {
             method: 'POST',
             headers: {

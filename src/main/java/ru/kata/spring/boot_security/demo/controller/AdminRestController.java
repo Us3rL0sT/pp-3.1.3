@@ -14,18 +14,17 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Set;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api")
-public class RestController {
+public class AdminRestController {
 
     private final UserService userService;
     private final RoleService roleService;
     private final UserRepository userRepository;
 
-    public RestController(UserService userService, RoleService roleService,
-                          UserRepository userRepository) {
+    public AdminRestController(UserService userService, RoleService roleService,
+                               UserRepository userRepository) {
         this.userService = userService;
         this.roleService = roleService;
         this.userRepository = userRepository;
@@ -83,8 +82,6 @@ public class RestController {
     ) {
         User user = userService.getUserById(userId);
         Role role = roleService.getRoleById(roleId);
-        System.out.println(user);
-        System.out.println(role);
         user.removeRole(role);
         return userRepository.save(user);
     }

@@ -23,6 +23,6 @@ public interface UserService extends UserDetailsService {
 
     void updateUser(int id, User user);
 
-    User setRolesByUserId(int userId, int roleId);
+//    User setRolesByUserId(int userId, int roleId);
 
 }

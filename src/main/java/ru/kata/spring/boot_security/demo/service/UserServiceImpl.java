@@ -93,30 +93,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.save(user);
     }
 
-    @Override
-    public User setRolesByUserId(int userId, int roleId) {
-        User user = getUserById(userId);
-
-        // тут нужно создать переменную с юзером и добавить ему эту роль.
-        // user.setRoles(roles);
-        Role role = roleRepository.getById(1);
-        System.out.println(role);
-
-        // users_roles подтянуть и туда добавить?
-        System.out.println(1);
-        //System.out.println(role);
-        System.out.println(1);
-        System.out.println(user.getId());
-        System.out.println(user.getRoles());
-        System.out.println(1);
-        System.out.println(1);
-        return userRepository.save(user);
-
-        // Role role = getRoleById(roleId);
-                 // нужно найти роль по id. присвоить роль юзеру и сохранить юзера.
-
-        // дальше найти роль ща загуглю кое че
-//        короче дальше сам)))
-//        ищи как добавить и сохранить.
-    }
+//    @Override
+//    public User setRolesByUserId(int userId, int roleId) {
+//        User user = getUserById(userId);
+//        return userRepository.save(user);
+//
+//
+//    }
 }
