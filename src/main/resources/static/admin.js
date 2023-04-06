@@ -1,12 +1,12 @@
 $(async function() {
 
-    await allUsers();
-    await createUser();
+    await getAllUsers();
+    await getAllRoles();
     editUser();
     deleteUser();
 });
 
-async function allUsers() {
+async function getAllUsers() {
     const table = $('#adminTable').empty()
 
     fetch("http://localhost:8080/api/users")
@@ -63,6 +63,7 @@ const showEditModal = async (id) => {
     form.email.value = user.email;
     form.phone_number.value = user.phone_number;
     form.password.value = user.password;
+    form.roles.value = user.stringRoles;
 
 
     $('#rolesEditUser').empty();
@@ -107,16 +108,6 @@ async function editUser() {
 
                 stringRoles += name;
             });
-            for (const id of addedRolesIDs) {
-                await fetch(`http://localhost:8080/api/${editForm.id.value}/add-role/${ id }`, {
-                    method: 'PUT',
-                })
-            }
-            for (const id of removedRolesIDs) {
-                await fetch(`http://localhost:8080/api/${editForm.id.value}/remove-role/${ id }`, {
-                    method: 'PUT',
-                })
-            }
             await fetch(`http://localhost:8080/api/${editForm.id.value}`, {
                 method: 'PUT',
                 headers: {
@@ -129,29 +120,35 @@ async function editUser() {
                     email: editForm.email.value,
                     phone_number: editForm.phone_number.value,
                     password: editForm.password.value,
-                    roles: stringRoles,
+                    //roles: stringRoles,
                 })
             })
+            for (const id of addedRolesIDs) {
+                await addRole(editForm.id.value, id);
+            }
+            for (const id of removedRolesIDs) {
+                await removeRole(editForm.id.value, id);
+            }
+            debugger;
         } finally {
             $('#editFormCloseButton').click();
-            await allUsers();
+            await getAllUsers();
         }
     })
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
+async function addRole(userId, roleId) {
+    await fetch(`http://localhost:8080/api/${userId}/add-role/${ roleId }`, {
+        method: 'PUT',
+    })
+}
 
+async function removeRole(userId, roleId) {
+    await fetch(`http://localhost:8080/api/${userId}/remove-role/${ roleId }`, {
+        method: 'PUT',
+    })
+}
 
 
 
@@ -198,7 +195,7 @@ function deleteUser() {
         })
             .then(() => {
                 $('#deleteFormCloseButton').click();
-                allUsers();
+                getAllUsers();
             })
     })
 }
@@ -219,25 +216,24 @@ function deleteUser() {
 
 
 
-// CREATE
 
-async function createUser() {
+
+async function getAllRoles() {
     await fetch("http://localhost:8080/api/roles")
         .then(res => res.json())
-        .then(roless => {
-            roless.forEach(roles => {
+        .then(roles => {
+            roles.forEach(roles => {
                 let el = document.createElement("option");
                 el.text = roles.role.substring(5);
                 el.value = roles.id;
                 $('#newUserRoles')[0].appendChild(el);
             })
         })
-
     const form = document.forms["formNewUser"];
 
-    form.addEventListener('submit', addNewUser)
+    form.addEventListener('submit', createUser)
 
-    function addNewUser(e) {
+    async function createUser(e) {
         e.preventDefault();
         let newUserRoles = [];
         for (let i = 0; i < form.roles.options.length; i++) {
@@ -246,7 +242,7 @@ async function createUser() {
                 name: form.roles.options[i].text
             })
         }
-        fetch("http://localhost:8080/api", {
+        const user = await fetch("http://localhost:8080/api", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -260,14 +256,14 @@ async function createUser() {
                 stringRoles: newUserRoles[0].name
 
             })
-        }).then(() => {
-            form.reset();
-            allUsers();
-            window.location.href = "http://localhost:8080/admin";
-            $('#userTable').click();
         })
-    }
+            .then(res => res.json());
 
+        for (let roleItem of newUserRoles ) {
+            await addRole(user.id, roleItem.id);
+        }
+        location.reload();
+    }
 }
 
 

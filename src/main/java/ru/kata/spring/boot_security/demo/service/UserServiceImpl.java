@@ -87,10 +87,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public void updateUser(int id, User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        user.setId(id);
-        userRepository.save(user);
+    public User updateUser(int id, User user) {
+        User existingUser = userRepository.findById(user.getId()).orElse(null);
+        if (existingUser != null) {
+            if (user.getFull_name() != null) {
+                existingUser.setFull_name(user.getFull_name());
+            }
+            if (user.getPhone_number() != null) {
+                existingUser.setPhone_number(user.getPhone_number());
+            }
+            if (user.getEmail() != null) {
+                existingUser.setEmail(user.getEmail());
+            }
+            return userRepository.save(existingUser);
+        } else {
+            return null;
+        }
     }
 
 //    @Override
@@ -101,3 +113,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //
 //    }
 }
+
+
+
+//    @Transactional
+//    @Override
+//    public User updateUser(int id, User user) {
+//        User existingUser = userRepository.findById(user.getId()).orElse(null);
+//        if (existingUser != null) {
+//            if (user.getFull_name() != null) {
+//                existingUser.setFull_name(user.getFull_name());
+//            }
+//            if (user.getPhone_number() != null) {
+//                existingUser.setPhone_number(user.getPhone_number());
+//            }
+//            if (user.getEmail() != null) {
+//                existingUser.setEmail(user.getEmail());
+//            }
+////            if (user.getRoles() != null) {
+////                existingUser.setRoles(user.getRoles());
+////            }
+//            return userRepository.save(existingUser);
+//        } else {
+//            return null;
+//        }
+//    }

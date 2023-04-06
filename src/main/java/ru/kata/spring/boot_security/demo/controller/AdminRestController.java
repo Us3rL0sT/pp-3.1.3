@@ -50,7 +50,10 @@ public class AdminRestController {
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> update(@RequestBody User user) {
         userService.updateUser(user.getId(), user);
+
+
         return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
     @PutMapping(value = "/{userId}/add-role/{roleId}", produces = MediaType.APPLICATION_JSON_VALUE)
