@@ -48,12 +48,12 @@
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#userTable"
-                                   role="tab"
+                                <a class="nav-link active" id="allUsersTable" data-bs-toggle="tab" href="#userTable"
+                                   role="tab" data-target="#allUsersTable"
                                    aria-controls="home" aria-selected="true">User Table</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#new_user" role="tab"
+                                <a class="nav-link" id="createUsersTable" data-bs-toggle="tab" href="#new_user" role="tab"
                                    aria-controls="profile" aria-selected="false">New User</a>
                             </li>
 
@@ -93,7 +93,7 @@
                         </div>
 
 
-                        <div class="tab-pane fade" id="new_user" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="tab-pane fade" id="new_user" role="tabpanel" aria-labelledby="createUsersTable">
                             <div class="border py-2 px-4 ">
                                 <h5>Add new user</h5>
                             </div>
@@ -232,7 +232,7 @@
                         <div class="modal-footer">
 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    aria-label="Close">Close</button>
+                                    id="editFormCloseButton" aria-label="Close">Close</button>
 
 
 
@@ -315,7 +315,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    aria-label="Close">Close</button>
+                            id="deleteFormCloseButton" aria-label="Close">Close</button>
                             <button type="submit" class="btn btn btn-danger">Delete</button>
                         </div>
 

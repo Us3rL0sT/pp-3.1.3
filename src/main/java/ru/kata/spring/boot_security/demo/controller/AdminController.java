@@ -38,42 +38,13 @@ public class AdminController {
     }
 
 
-    @PostMapping("/user-info")
-    public String saveNewUser(@ModelAttribute("user") User user) {
-
-        userService.saveUser(user);
-        return "redirect:/admin";
-    }
-
-
-    @PutMapping(value = "/user-edit/{id}")
-    public String updateUser(@ModelAttribute("user") User user) {
-        userService.updateUser(user.getId(), user);
-        return "redirect:/admin";
-    }
 
 
 
-    @DeleteMapping(value = "/user-delete/{id}")
-    public String deleteUser(@PathVariable(name = "id") int id) {
-        userService.removeUserById(id);
-        return "redirect:/admin";
-    }
 
-    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
-    public String getLoginPage(@RequestParam(value = "error", required = false) String error, Model model) {
-        model.addAttribute("error", error != null);
-        return "login";
-    }
 
-    @GetMapping(value = "/user")
-    public String showUserPage(Model model, Principal principal) {
 
-        model.addAttribute("user", userService.findByUsername(principal.getName()));
-        model.addAttribute("allUs", userService.findByUsername(principal.getName()));
-        model.addAttribute("newUser", new User());
 
-        return "user";
-    }
+
 
 }

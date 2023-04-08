@@ -128,7 +128,6 @@ async function editUser() {
             for (const id of removedRolesIDs) {
                 await removeRole(editForm.id.value, id);
             }
-            debugger;
         } finally {
             $('#editFormCloseButton').click();
             await getAllUsers();
@@ -148,6 +147,12 @@ async function removeRole(userId, roleId) {
         method: 'PUT',
     })
 }
+
+
+
+
+
+
 
 
 
@@ -261,7 +266,13 @@ async function getAllRoles() {
         for (let roleItem of newUserRoles ) {
             await addRole(user.id, roleItem.id);
         }
-        location.reload();
+        $('#createUsersTable').removeClass('show active');
+        $('#allUsersTable').addClass('show active');
+        form.reset();
+        await getAllUsers();
+
+
+
     }
 }
 
