@@ -266,8 +266,7 @@ async function getAllRoles() {
         for (let roleItem of newUserRoles ) {
             await addRole(user.id, roleItem.id);
         }
-        $('#createUsersTable').removeClass('show active');
-        $('#allUsersTable').addClass('show active');
+
         form.reset();
         await getAllUsers();
 

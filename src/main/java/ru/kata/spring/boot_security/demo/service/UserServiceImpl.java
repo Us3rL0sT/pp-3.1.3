@@ -86,10 +86,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User updateUser(int id, User user) {
         User existingUser = userRepository.findById(user.getId()).orElse(null);
         if (existingUser != null) {
+            existingUser.setUsername(user.getUsername() != null ? user.getUsername() : existingUser.getUsername());
             existingUser.setFull_name(user.getFull_name() != null ? user.getFull_name() : existingUser.getFull_name());
             existingUser.setPhone_number(user.getPhone_number() != null ? user.getPhone_number() :
                     existingUser.getPhone_number());
             existingUser.setEmail(user.getEmail() != null ? user.getEmail() : existingUser.getEmail());
+            existingUser.setPassword(new BCryptPasswordEncoder().encode((user.getPassword() != null ? user.getPassword() : existingUser.getPassword())));
             return userRepository.save(existingUser);
         }
         throw new EntityNotFoundException("User with id " + id + " not found");
